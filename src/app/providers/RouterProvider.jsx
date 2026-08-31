@@ -4,9 +4,15 @@ import { KpiEmployeePage } from '@/pages/kpi-employee'
 import { KpiMonitoringPage } from '@/pages/kpi-monitoring'
 import { PlaceholderPage } from '@/pages/placeholder'
 
+function getBasename() {
+  const base = import.meta.env.BASE_URL
+  if (!base || base === '/') return undefined
+  return base.replace(/\/$/, '')
+}
+
 export function RouterProvider() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={getBasename()}>
       <Routes>
         <Route path="/" element={<Navigate to="/admin/kpi/2026" replace />} />
         <Route path="/monitoring/:year" element={<KpiMonitoringPage />} />

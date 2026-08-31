@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build
@@ -12,24 +16,27 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: npm ci
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_BASE: /frt_kpi/
 
       - name: Copy index.html to 404.html for SPA support
         run: cp dist/index.html dist/404.html
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v4  # Обновлено до v4
+        uses: actions/upload-artifact@v4
         with:
           name: production-files
           path: ./dist
