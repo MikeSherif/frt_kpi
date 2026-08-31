@@ -1,0 +1,37 @@
+@use '@/app/styles/variables' as *;
+
+.tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.tab-list__item {
+  padding: 8px 4px;
+  border: none;
+  background: transparent;
+  color: $color-text-muted;
+  font-size: $font-size-base;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-list__item:hover {
+  color: $color-text;
+}
+
+.tab-list__item--active {
+  color: $color-text;
+  border-bottom-color: $color-accent;
+  font-weight: 500;
+}
+
+.tab-list--compact .tab-list__item {
+  padding: 6px 2px;
+  font-size: $font-size-sm;
+}
+
+.tab-list--nav .tab-list__item {
+  padding: 10px 0;
+  margin-right: 24px;
+}

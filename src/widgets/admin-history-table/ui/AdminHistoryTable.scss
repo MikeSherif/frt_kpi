@@ -1,0 +1,78 @@
+@use '@/app/styles/variables' as *;
+
+.admin-history-table {
+  background: $color-surface;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding-top: 24px;
+}
+
+.admin-history-table__wrap {
+  overflow: auto;
+  padding: 0 24px 24px;
+}
+
+.admin-history-table__grid {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-history-table__th,
+.admin-history-table__td {
+  padding: 10px 12px;
+  font-size: $font-size-xs;
+  line-height: 1.35;
+  border-bottom: 1px solid $color-border;
+  vertical-align: top;
+  text-align: left;
+}
+
+.admin-history-table__head {
+  background: $color-header-bg;
+}
+
+.admin-history-table__th {
+  font-weight: 600;
+}
+
+.admin-history-table__row:nth-child(even) .admin-history-table__td {
+  background: #f3f7fb;
+}
+
+.admin-history-table__row:last-child .admin-history-table__td {
+  border-bottom: none;
+}
+
+.admin-history-table__th--datetime,
+.admin-history-table__td--datetime {
+  white-space: nowrap;
+  width: 130px;
+}
+
+.admin-history-table__th--employee {
+  width: 160px;
+}
+
+.admin-history-table__th--name,
+.admin-history-table__td--name {
+  min-width: 240px;
+}
+
+.admin-history-table__th--field {
+  min-width: 180px;
+}
+
+.admin-history-table__th--value,
+.admin-history-table__td--value {
+  width: 120px;
+}
+
+.admin-history-table__td--value {
+  text-align: right;
+}

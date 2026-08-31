@@ -1,0 +1,32 @@
+@use '@/app/styles/variables' as *;
+
+.editable-cell {
+  display: block;
+  width: 100%;
+  font-size: $font-size-xs;
+}
+
+.editable-cell--readonly {
+  text-align: right;
+}
+
+.editable-cell--input {
+  padding: 4px 6px;
+  border: 1px solid $color-border-strong;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  font: inherit;
+  text-align: right;
+}
+
+.editable-cell--textarea {
+  text-align: left;
+  resize: vertical;
+  min-height: 44px;
+}
+
+.editable-cell--input:focus {
+  outline: none;
+  border-color: $color-accent;
+  box-shadow: 0 0 0 2px $color-accent-light;
+}

@@ -1,0 +1,44 @@
+@use '@/app/styles/variables' as *;
+
+.monitoring-header {
+  padding: 16px 24px 0;
+  background: $color-surface;
+  box-shadow: $shadow-header;
+}
+
+.monitoring-header__page-label {
+  margin: 0 0 8px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  font-weight: 500;
+}
+
+.monitoring-header__years {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.monitoring-header__year {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.monitoring-header__year:hover {
+  color: $color-text;
+}
+
+.monitoring-header__year--active {
+  color: $color-accent;
+  border-bottom-color: $color-accent;
+  font-weight: 600;
+}
+
+.monitoring-header__title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+}

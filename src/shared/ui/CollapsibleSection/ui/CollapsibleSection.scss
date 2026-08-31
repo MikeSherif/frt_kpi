@@ -1,0 +1,75 @@
+@use '@/app/styles/variables' as *;
+
+.collapsible-section {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  overflow: hidden;
+}
+
+.collapsible-section--card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 12px;
+}
+
+.collapsible-section--card .collapsible-section__header {
+  background: $color-surface;
+  padding: 14px 40px;
+}
+
+.collapsible-section--card.collapsible-section--expanded .collapsible-section__header {
+  padding: 12px 16px;
+  background: $color-header-bg;
+}
+
+.collapsible-section__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: $color-header-bg;
+  text-align: left;
+  font-weight: 600;
+  font-size: $font-size-base;
+}
+
+.collapsible-section__header--centered {
+  justify-content: center;
+  position: relative;
+}
+
+.collapsible-section__title--accent {
+  color: #2f6fd6;
+}
+
+.collapsible-section__chevron {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid $color-text;
+  transition: transform 0.15s;
+}
+
+.collapsible-section__chevron--open {
+  transform: rotate(90deg);
+}
+
+.collapsible-section__chevron--end {
+  position: absolute;
+  right: 16px;
+  transform: rotate(90deg);
+}
+
+.collapsible-section__body {
+  border-top: 1px solid $color-border;
+}
+
+.collapsible-section--card .collapsible-section__body {
+  border-top: none;
+}

@@ -1,0 +1,24 @@
+@use '@/app/styles/variables' as *;
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.nav-links__link {
+  padding: 10px 0;
+  font-size: $font-size-base;
+  color: $color-text-muted;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-links__link:hover {
+  color: $color-text;
+}
+
+.nav-links__link--active {
+  color: $color-text;
+  font-weight: 500;
+  border-bottom-color: $color-accent;
+}

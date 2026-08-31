@@ -1,0 +1,49 @@
+@use '@/app/styles/variables' as *;
+
+.responsible-cell-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.responsible-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.responsible-cell__name {
+  font-size: $font-size-xs;
+  line-height: 1.3;
+}
+
+.responsible-cell__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.responsible-cell__icon--check {
+  color: #27ae60;
+}
+
+.responsible-cell__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid $color-border-strong;
+  border-radius: 50%;
+  background: $color-surface;
+  color: $color-text-muted;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.responsible-cell__add:hover {
+  border-color: $color-accent;
+  color: $color-accent;
+}

@@ -1,0 +1,169 @@
+import { useMemo } from 'react'
+import { useMonitoringStore } from '@/entities/monitoring'
+import { formatNumber, getQuarterById } from '@/shared/lib/monitoring'
+import { EditableCell } from '@/shared/ui/EditableCell'
+import { cn } from '@/shared/lib/classnames'
+import './KpiEmployeeTable.scss'
+
+/**
+ * @param {{ rows: import('@/entities/kpi/model/employeeMockData').EmployeeKpiRow[], viewMode: 'month' | 'quarter' }} props
+ */
+export function KpiEmployeeTable({ rows, viewMode }) {
+  const quarterId = useMonitoringStore((s) => s.quarterId)
+  const quarter = useMemo(() => getQuarterById(quarterId), [quarterId])
+  const [m1, m2, m3] = quarter.months
+  const isMonthView = viewMode === 'month'
+  const isQuarterView = viewMode === 'quarter'
+
+  return (
+    <div className={cn('kpi-employee-table', `kpi-employee-table--${viewMode}`)}>
+      <div className="kpi-employee-table__scroll">
+        <table className="kpi-employee-table__grid">
+          <thead className="kpi-employee-table__head">
+            <tr className="kpi-employee-table__head-row">
+              <th
+                className="kpi-employee-table__th kpi-employee-table__th--sticky kpi-employee-table__th--index"
+                rowSpan={2}
+              >
+                № п/п
+              </th>
+              <th
+                className="kpi-employee-table__th kpi-employee-table__th--sticky kpi-employee-table__th--title"
+                rowSpan={2}
+              >
+                Ключевой показатель эффективности
+              </th>
+              <th className="kpi-employee-table__th" rowSpan={2}>
+                Уд. вес (%)
+              </th>
+              <th className="kpi-employee-table__th" rowSpan={2}>
+                Ед. изм.
+              </th>
+              <th className="kpi-employee-table__th" rowSpan={2}>
+                План на {quarter.label.toLowerCase()}
+              </th>
+              <th className="kpi-employee-table__th kpi-employee-table__th--group" colSpan={3}>
+                Факт нарастающим итогом
+              </th>
+              <th
+                className={cn(
+                  'kpi-employee-table__th',
+                  (isMonthView || isQuarterView) && 'kpi-employee-table__th--highlight',
+                )}
+                rowSpan={2}
+              >
+                Факт на {quarter.label.toLowerCase()} (нараст. итогом)
+              </th>
+              <th
+                className={cn(
+                  'kpi-employee-table__th kpi-employee-table__th--wide',
+                  isQuarterView && 'kpi-employee-table__th--highlight',
+                )}
+                rowSpan={2}
+              >
+                Причина отклонения
+              </th>
+              <th className="kpi-employee-table__th kpi-employee-table__th--person" rowSpan={2}>
+                Ответственный за выполнение
+              </th>
+              <th className="kpi-employee-table__th kpi-employee-table__th--person" rowSpan={2}>
+                Ответственный за ввод
+              </th>
+            </tr>
+            <tr className="kpi-employee-table__head-row kpi-employee-table__head-row--sub">
+              <th className="kpi-employee-table__th kpi-employee-table__th--month">{m1}</th>
+              <th className="kpi-employee-table__th kpi-employee-table__th--month">{m2}</th>
+              <th
+                className={cn(
+                  'kpi-employee-table__th kpi-employee-table__th--month',
+                  isMonthView && 'kpi-employee-table__th--highlight',
+                )}
+              >
+                {m3}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="kpi-employee-table__body">
+            {rows.map((row) => (
+              <tr
+                key={row.id}
+                className={cn(
+                  'kpi-employee-table__row',
+                  row.kind === 'subrow' && 'kpi-employee-table__row--sub',
+                )}
+              >
+                <td className="kpi-employee-table__td kpi-employee-table__td--sticky kpi-employee-table__td--index">
+                  {row.index}
+                </td>
+                <td className="kpi-employee-table__td kpi-employee-table__td--sticky kpi-employee-table__td--title">
+                  <span className="kpi-employee-table__title-text">{row.title}</span>
+                  {row.note ? (
+                    <span className="kpi-employee-table__note">{row.note}</span>
+                  ) : null}
+                </td>
+                <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                  {formatNumber(row.weight)}
+                </td>
+                <td className="kpi-employee-table__td">{row.unit}</td>
+                <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                  {formatNumber(row.planQuarter)}
+                </td>
+                <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                  {formatNumber(row.factMonth1)}
+                </td>
+                <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                  {formatNumber(row.factMonth2)}
+                </td>
+                <td
+                  className={cn(
+                    'kpi-employee-table__td kpi-employee-table__td--num',
+                    isMonthView && 'kpi-employee-table__td--highlight',
+                  )}
+                >
+                  <EditableCell
+                    rowId={row.id}
+                    field="factMonth3"
+                    defaultValue={row.factMonth3}
+                    viewMode="month"
+                    activeMode={viewMode}
+                  />
+                </td>
+                <td
+                  className={cn(
+                    'kpi-employee-table__td kpi-employee-table__td--num',
+                    (isMonthView || isQuarterView) && 'kpi-employee-table__td--highlight',
+                  )}
+                >
+                  <EditableCell
+                    rowId={row.id}
+                    field="factQuarter"
+                    defaultValue={row.factQuarter}
+                    viewMode={isMonthView ? 'month' : 'quarter'}
+                    activeMode={viewMode}
+                  />
+                </td>
+                <td
+                  className={cn(
+                    'kpi-employee-table__td kpi-employee-table__td--text',
+                    isQuarterView && 'kpi-employee-table__td--highlight',
+                  )}
+                >
+                  <EditableCell
+                    rowId={row.id}
+                    field="deviationReason"
+                    defaultValue={row.deviationReason}
+                    viewMode="quarter"
+                    activeMode={viewMode}
+                    type="textarea"
+                  />
+                </td>
+                <td className="kpi-employee-table__td">{row.responsibleExecution}</td>
+                <td className="kpi-employee-table__td">{row.responsibleInput}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}

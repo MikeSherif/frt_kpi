@@ -1,0 +1,8 @@
+.kpi-admin-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-admin-sections__item:last-child {
+  margin-bottom: 0;
+}

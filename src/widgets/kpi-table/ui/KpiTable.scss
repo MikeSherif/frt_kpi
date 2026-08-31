@@ -1,0 +1,113 @@
+@use '@/app/styles/variables' as *;
+
+.kpi-table {
+  font-size: $font-size-xs;
+}
+
+.kpi-table__scroll {
+  overflow: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 280px);
+}
+
+.kpi-table__grid {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.kpi-table__th,
+.kpi-table__td {
+  border: 1px solid $color-border;
+  padding: 6px 8px;
+  vertical-align: top;
+  background: $color-surface;
+  line-height: 1.35;
+}
+
+.kpi-table__th {
+  background: $color-header-bg;
+  font-weight: 600;
+  text-align: center;
+  min-width: 72px;
+}
+
+.kpi-table__th--group {
+  border-bottom: 1px solid $color-border-strong;
+}
+
+.kpi-table__th--index,
+.kpi-table__td--index {
+  width: 48px;
+  min-width: 48px;
+  text-align: center;
+}
+
+.kpi-table__th--title,
+.kpi-table__td--title {
+  width: 280px;
+  min-width: 280px;
+  max-width: 320px;
+  text-align: left;
+}
+
+.kpi-table__th--wide {
+  min-width: 160px;
+}
+
+.kpi-table__th--methodology,
+.kpi-table__td--methodology {
+  min-width: 320px;
+  max-width: 420px;
+}
+
+.kpi-table__th--month-current,
+.kpi-table__td--month-current {
+  background: $color-accent-light;
+}
+
+.kpi-table__th--sticky,
+.kpi-table__td--sticky {
+  position: sticky;
+  z-index: 2;
+}
+
+.kpi-table__th--sticky {
+  z-index: 3;
+}
+
+.kpi-table__th--index,
+.kpi-table__td--index {
+  left: 0;
+}
+
+.kpi-table__th--title,
+.kpi-table__td--title {
+  left: 48px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.kpi-table__td--num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.kpi-table__td--text {
+  min-width: 140px;
+}
+
+.kpi-table__row--sub .kpi-table__td--title {
+  padding-left: 20px;
+  font-style: italic;
+  color: $color-text-muted;
+}
+
+.kpi-table__head-row--sub .kpi-table__th {
+  top: 0;
+}
+
+.kpi-table:not(.kpi-table--full-view) .kpi-table__th--methodology,
+.kpi-table:not(.kpi-table--full-view) .kpi-table__td--methodology {
+  display: none;
+}

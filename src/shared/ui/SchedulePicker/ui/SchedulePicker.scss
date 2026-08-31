@@ -1,0 +1,39 @@
+@use '@/app/styles/variables' as *;
+
+.schedule-picker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 6px 12px;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  background: #f5f5f5;
+  color: $color-text;
+  font-size: $font-size-xs;
+  cursor: pointer;
+}
+
+.schedule-picker--empty {
+  color: $color-text-muted;
+}
+
+.schedule-picker--input {
+  width: 100%;
+  max-width: 140px;
+  text-align: center;
+  cursor: text;
+}
+
+.schedule-picker--input::placeholder {
+  color: $color-text-muted;
+}
+
+.schedule-picker:hover {
+  border-color: $color-border-strong;
+}
+
+.schedule-picker--input:focus {
+  outline: none;
+  border-color: $color-accent;
+}

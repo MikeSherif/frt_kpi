@@ -1,0 +1,25 @@
+@use '@/app/styles/variables' as *;
+
+.monitoring-toolbar {
+  padding: 0 24px 12px;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+}
+
+.monitoring-toolbar__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.monitoring-toolbar__row--primary {
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.monitoring-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

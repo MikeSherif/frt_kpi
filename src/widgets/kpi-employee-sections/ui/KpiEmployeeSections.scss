@@ -1,0 +1,8 @@
+.kpi-employee-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-employee-sections__item:last-child {
+  margin-bottom: 0;
+}

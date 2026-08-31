@@ -1,0 +1,12 @@
+@use '@/app/styles/variables' as *;
+
+.kpi-admin-page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-admin-page__main {
+  flex: 1;
+  padding: 16px 24px 24px;
+}
