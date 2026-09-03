@@ -2,10 +2,12 @@ import { useMemo } from 'react'
 import { useMonitoringStore } from '@/entities/monitoring'
 import { formatNumber, getQuarterById } from '@/shared/lib/monitoring'
 import { cn } from '@/shared/lib/classnames'
+import { AdminEditableCell } from './AdminEditableCell'
 import {
   ResponsibleExecutionCell,
   ResponsibleInputCell,
 } from './ResponsibleCell'
+import './AdminEditableCell.scss'
 import './ResponsibleCell.scss'
 import './KpiAdminTable.scss'
 
@@ -16,6 +18,9 @@ export function KpiAdminTable({ rows }) {
 
   return (
     <div className="kpi-admin-table">
+      <p className="kpi-admin-table__hint">
+        Наведите на значение показателя и нажмите, чтобы исправить данные сотрудника.
+      </p>
       <div className="kpi-admin-table__scroll">
         <table className="kpi-admin-table__grid">
           <thead className="kpi-admin-table__head">
@@ -85,22 +90,52 @@ export function KpiAdminTable({ rows }) {
                 </td>
                 <td className="kpi-admin-table__td">{row.unit}</td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                  {formatNumber(row.planQuarter)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="planQuarter"
+                    defaultValue={row.planQuarter}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                  {formatNumber(row.factMonth1)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="factMonth1"
+                    defaultValue={row.factMonth1}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                  {formatNumber(row.factMonth2)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="factMonth2"
+                    defaultValue={row.factMonth2}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num kpi-admin-table__td--month-current">
-                  {formatNumber(row.factMonth3)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="factMonth3"
+                    defaultValue={row.factMonth3}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                  {formatNumber(row.factQuarter)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="factQuarter"
+                    defaultValue={row.factQuarter}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--text">
-                  {row.deviationReason || '—'}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="deviationReason"
+                    defaultValue={row.deviationReason}
+                    type="textarea"
+                  />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--person">
                   <ResponsibleExecutionCell person={row.responsibleExecution} />

@@ -1,7 +1,6 @@
 import { useEmployeeKpiStore } from '@/entities/employee'
 import { cn } from '@/shared/lib/classnames'
 import './EditableCell.scss'
-import './EditableCell.scss'
 
 export function EditableCell({
   rowId,

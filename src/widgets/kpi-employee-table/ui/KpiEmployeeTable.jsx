@@ -45,24 +45,28 @@ export function KpiEmployeeTable({ rows, viewMode }) {
               <th className="kpi-employee-table__th kpi-employee-table__th--group" colSpan={3}>
                 Факт нарастающим итогом
               </th>
-              <th
-                className={cn(
-                  'kpi-employee-table__th',
-                  (isMonthView || isQuarterView) && 'kpi-employee-table__th--highlight',
-                )}
-                rowSpan={2}
-              >
-                Факт на {quarter.label.toLowerCase()} (нараст. итогом)
-              </th>
-              <th
-                className={cn(
-                  'kpi-employee-table__th kpi-employee-table__th--wide',
-                  isQuarterView && 'kpi-employee-table__th--highlight',
-                )}
-                rowSpan={2}
-              >
-                Причина отклонения
-              </th>
+              {!isMonthView ? (
+                <th
+                  className={cn(
+                    'kpi-employee-table__th',
+                    isQuarterView && 'kpi-employee-table__th--highlight',
+                  )}
+                  rowSpan={2}
+                >
+                  Факт на {quarter.label.toLowerCase()} (нараст. итогом)
+                </th>
+              ) : null}
+              {!isMonthView ? (
+                <th
+                  className={cn(
+                    'kpi-employee-table__th kpi-employee-table__th--wide',
+                    isQuarterView && 'kpi-employee-table__th--highlight',
+                  )}
+                  rowSpan={2}
+                >
+                  Причина отклонения
+                </th>
+              ) : null}
               <th className="kpi-employee-table__th kpi-employee-table__th--person" rowSpan={2}>
                 Ответственный за выполнение
               </th>
@@ -120,43 +124,51 @@ export function KpiEmployeeTable({ rows, viewMode }) {
                     isMonthView && 'kpi-employee-table__td--highlight',
                   )}
                 >
-                  <EditableCell
-                    rowId={row.id}
-                    field="factMonth3"
-                    defaultValue={row.factMonth3}
-                    viewMode="month"
-                    activeMode={viewMode}
-                  />
-                </td>
-                <td
-                  className={cn(
-                    'kpi-employee-table__td kpi-employee-table__td--num',
-                    (isMonthView || isQuarterView) && 'kpi-employee-table__td--highlight',
+                  {isMonthView ? (
+                    <EditableCell
+                      rowId={row.id}
+                      field="factMonth3"
+                      defaultValue={row.factMonth3}
+                      viewMode="month"
+                      activeMode={viewMode}
+                    />
+                  ) : (
+                    formatNumber(row.factMonth3)
                   )}
-                >
-                  <EditableCell
-                    rowId={row.id}
-                    field="factQuarter"
-                    defaultValue={row.factQuarter}
-                    viewMode={isMonthView ? 'month' : 'quarter'}
-                    activeMode={viewMode}
-                  />
                 </td>
-                <td
-                  className={cn(
-                    'kpi-employee-table__td kpi-employee-table__td--text',
-                    isQuarterView && 'kpi-employee-table__td--highlight',
-                  )}
-                >
-                  <EditableCell
-                    rowId={row.id}
-                    field="deviationReason"
-                    defaultValue={row.deviationReason}
-                    viewMode="quarter"
-                    activeMode={viewMode}
-                    type="textarea"
-                  />
-                </td>
+                {!isMonthView ? (
+                  <td
+                    className={cn(
+                      'kpi-employee-table__td kpi-employee-table__td--num',
+                      isQuarterView && 'kpi-employee-table__td--highlight',
+                    )}
+                  >
+                    <EditableCell
+                      rowId={row.id}
+                      field="factQuarter"
+                      defaultValue={row.factQuarter}
+                      viewMode="quarter"
+                      activeMode={viewMode}
+                    />
+                  </td>
+                ) : null}
+                {!isMonthView ? (
+                  <td
+                    className={cn(
+                      'kpi-employee-table__td kpi-employee-table__td--text',
+                      isQuarterView && 'kpi-employee-table__td--highlight',
+                    )}
+                  >
+                    <EditableCell
+                      rowId={row.id}
+                      field="deviationReason"
+                      defaultValue={row.deviationReason}
+                      viewMode="quarter"
+                      activeMode={viewMode}
+                      type="textarea"
+                    />
+                  </td>
+                ) : null}
                 <td className="kpi-employee-table__td">{row.responsibleExecution}</td>
                 <td className="kpi-employee-table__td">{row.responsibleInput}</td>
               </tr>

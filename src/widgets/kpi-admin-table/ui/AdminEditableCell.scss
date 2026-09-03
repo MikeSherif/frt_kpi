@@ -1,0 +1,42 @@
+@use '@/app/styles/variables' as *;
+
+.admin-editable-cell {
+  display: block;
+  width: 100%;
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.admin-editable-cell--num {
+  text-align: right;
+}
+
+.admin-editable-cell:hover {
+  background: rgba(47, 111, 214, 0.08);
+  border-color: rgba(47, 111, 214, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(47, 111, 214, 0.15);
+}
+
+.admin-editable-cell--input {
+  padding: 4px 6px;
+  border: 1px solid $color-border-strong;
+  background: $color-surface;
+  cursor: text;
+}
+
+.admin-editable-cell--input:focus {
+  outline: none;
+  border-color: $color-accent;
+  box-shadow: 0 0 0 2px $color-accent-light;
+}
+
+.admin-editable-cell--num.admin-editable-cell--input {
+  text-align: right;
+}

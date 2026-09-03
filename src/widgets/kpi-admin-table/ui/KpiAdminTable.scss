@@ -4,6 +4,13 @@
   font-size: $font-size-xs;
 }
 
+.kpi-admin-table__hint {
+  margin: 0 0 10px;
+  padding: 0 4px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
 .kpi-admin-table__scroll {
   overflow: auto;
   max-width: 100%;
