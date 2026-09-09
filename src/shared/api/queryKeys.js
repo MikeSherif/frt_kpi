@@ -7,11 +7,11 @@ export const queryKeys = {
   },
   documents: {
     all: ['documents'],
-    list: (year) => ['documents', year],
+    list: (year, scope = 'admin') => ['documents', scope, year],
   },
   history: {
     all: ['history'],
-    list: (year, quarterId) => ['history', year, quarterId],
+    list: (year, quarterId, scope = 'admin', mode) => ['history', scope, year, quarterId, mode],
   },
   collection: {
     all: ['collection'],

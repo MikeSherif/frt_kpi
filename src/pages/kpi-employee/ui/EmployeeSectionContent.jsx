@@ -1,16 +1,15 @@
-const SECTION_TITLES = {
-  documents: 'Документы',
-  history: 'История',
-}
+import { getEmployeeHistory } from '@/entities/history'
+import { AdminDocumentsPanel } from '@/widgets/admin-documents-panel'
+import { AdminHistoryTable } from '@/widgets/admin-history-table'
 
-export function EmployeeSectionContent({ section }) {
-  const title = SECTION_TITLES[section] ?? section
+export function EmployeeSectionContent({ section, viewMode = 'month' }) {
+  if (section === 'documents') {
+    return <AdminDocumentsPanel scope="employee" />
+  }
 
-  return (
-    <div className="employee-section-content">
-      <p className="employee-section-content__hint">
-        Раздел «{title}» — заглушка для интерфейса сотрудника.
-      </p>
-    </div>
-  )
+  if (section === 'history') {
+    return <AdminHistoryTable entries={getEmployeeHistory(viewMode)} />
+  }
+
+  return null
 }

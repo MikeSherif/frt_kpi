@@ -1,7 +1,7 @@
 import { ADMIN_HISTORY_ENTRIES } from '@/entities/history'
 import './AdminHistoryTable.scss'
 
-export function AdminHistoryTable() {
+export function AdminHistoryTable({ entries = ADMIN_HISTORY_ENTRIES }) {
   return (
     <div className="admin-history-table">
       <div className="admin-history-table__wrap">
@@ -29,24 +29,32 @@ export function AdminHistoryTable() {
             </tr>
           </thead>
           <tbody className="admin-history-table__body">
-            {ADMIN_HISTORY_ENTRIES.map((entry) => (
-              <tr key={entry.id} className="admin-history-table__row">
-                <td className="admin-history-table__td admin-history-table__td--datetime">
-                  {entry.datetime}
-                </td>
-                <td className="admin-history-table__td">{entry.employee}</td>
-                <td className="admin-history-table__td admin-history-table__td--name">
-                  {entry.indicatorName}
-                </td>
-                <td className="admin-history-table__td">{entry.changedField}</td>
-                <td className="admin-history-table__td admin-history-table__td--value">
-                  {entry.oldValue}
-                </td>
-                <td className="admin-history-table__td admin-history-table__td--value">
-                  {entry.newValue}
+            {entries.length === 0 ? (
+              <tr>
+                <td className="admin-history-table__td" colSpan={6}>
+                  Изменений за выбранный период нет.
                 </td>
               </tr>
-            ))}
+            ) : (
+              entries.map((entry) => (
+                <tr key={entry.id} className="admin-history-table__row">
+                  <td className="admin-history-table__td admin-history-table__td--datetime">
+                    {entry.datetime}
+                  </td>
+                  <td className="admin-history-table__td">{entry.employee}</td>
+                  <td className="admin-history-table__td admin-history-table__td--name">
+                    {entry.indicatorName}
+                  </td>
+                  <td className="admin-history-table__td">{entry.changedField}</td>
+                  <td className="admin-history-table__td admin-history-table__td--value">
+                    {entry.oldValue}
+                  </td>
+                  <td className="admin-history-table__td admin-history-table__td--value">
+                    {entry.newValue}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -3,12 +3,12 @@ import { DeleteIcon } from '@/shared/ui/DeleteIcon'
 import { DocumentIcon } from '@/shared/ui/DocumentIcon'
 import './AdminDocumentsPanel.scss'
 
-export function AdminDocumentsPanel() {
-  const documents = useDocumentsStore((s) => s.documents)
+export function AdminDocumentsPanel({ scope = 'admin' }) {
+  const documents = useDocumentsStore((s) => s.lists[scope] ?? [])
   const addDocument = useDocumentsStore((s) => s.addDocument)
   const removeDocument = useDocumentsStore((s) => s.removeDocument)
   const saveAll = useDocumentsStore((s) => s.saveAll)
-  const saveMessage = useDocumentsStore((s) => s.saveMessage)
+  const saveMessage = useDocumentsStore((s) => s.saveMessage[scope])
 
   return (
     <div className="admin-documents-panel">
@@ -16,12 +16,16 @@ export function AdminDocumentsPanel() {
         <button
           type="button"
           className="admin-documents-panel__action"
-          onClick={() => addDocument()}
+          onClick={() => addDocument(undefined, scope)}
         >
           <span className="admin-documents-panel__action-icon">+</span>
           Добавить документ
         </button>
-        <button type="button" className="admin-documents-panel__action" onClick={saveAll}>
+        <button
+          type="button"
+          className="admin-documents-panel__action"
+          onClick={() => saveAll(scope)}
+        >
           Сохранить все
         </button>
         {saveMessage === 'saved' ? (
@@ -45,6 +49,13 @@ export function AdminDocumentsPanel() {
             </tr>
           </thead>
           <tbody className="admin-documents-table__body">
+            {documents.length === 0 ? (
+              <tr>
+                <td className="admin-documents-table__td" colSpan={3}>
+                  Документов пока нет.
+                </td>
+              </tr>
+            ) : null}
             {documents.map((doc) => (
               <tr key={doc.id} className="admin-documents-table__row">
                 <td className="admin-documents-table__td admin-documents-table__td--name">
@@ -61,7 +72,7 @@ export function AdminDocumentsPanel() {
                     type="button"
                     className="admin-documents-table__delete"
                     aria-label={`Удалить ${doc.name}`}
-                    onClick={() => removeDocument(doc.id)}
+                    onClick={() => removeDocument(doc.id, scope)}
                   >
                     <DeleteIcon className="admin-documents-table__delete-icon" />
                   </button>

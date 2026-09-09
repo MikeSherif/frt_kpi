@@ -14,12 +14,18 @@ const EMPLOYEE_BASE_PATH = ROUTE_ROOTS.employee
 const PAGE_LABELS = {
   month: 'Показатель КПЭ Сотрудник - месяц',
   quarter: 'Показатель КПЭ Сотрудник - квартал',
+  'month-documents': 'КПЭ Сотрудник документы',
+  'quarter-documents': 'КПЭ Сотрудник документы',
+  'month-history': 'КПЭ Сотрудник история',
+  'quarter-history': 'КПЭ Сотрудник история',
 }
 
 export function KpiEmployeePage() {
   const { year = '2026', mode, section } = useParams()
   const isIndicators = !section || section === 'indicators'
   const viewMode = mode === 'quarter' ? 'quarter' : 'month'
+  const pageLabel =
+    PAGE_LABELS[section ? `${viewMode}-${section}` : viewMode] ?? PAGE_LABELS[viewMode]
 
   if (mode !== 'month' && mode !== 'quarter') {
     return <Navigate to={`${EMPLOYEE_BASE_PATH}/2026/month`} replace />
@@ -31,7 +37,7 @@ export function KpiEmployeePage() {
 
   return (
     <div className="kpi-employee-page">
-      <MonitoringHeader pageLabel={PAGE_LABELS[viewMode]} basePath={EMPLOYEE_BASE_PATH} />
+      <MonitoringHeader pageLabel={pageLabel} basePath={EMPLOYEE_BASE_PATH} />
       <MonitoringToolbar
         basePath={EMPLOYEE_BASE_PATH}
         sections={EMPLOYEE_MONITORING_SECTIONS}
@@ -42,7 +48,7 @@ export function KpiEmployeePage() {
         {isIndicators ? (
           <KpiEmployeeSections viewMode={viewMode} />
         ) : (
-          <EmployeeSectionContent section={section} />
+          <EmployeeSectionContent section={section} viewMode={viewMode} />
         )}
       </main>
     </div>
