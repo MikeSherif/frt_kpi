@@ -1,0 +1,26 @@
+@use '@/app/styles/variables' as *;
+
+.not-found-page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.not-found-page__title {
+  margin: 0 0 12px;
+}
+
+.not-found-page__text {
+  margin: 0 0 20px;
+  color: $color-text-muted;
+}
+
+.not-found-page__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.not-found-page__nav a {
+  color: #2f6fd6;
+}

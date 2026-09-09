@@ -1,13 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useMonitoringStore } from '@/entities/monitoring'
 import { AVAILABLE_YEARS } from '@/shared/lib/monitoring'
+import { buildSectionPath, ROUTE_ROOTS } from '@/shared/lib/paths'
 import { cn } from '@/shared/lib/classnames'
 import './MonitoringHeader.scss'
 
 export function MonitoringHeader({
   pageLabel,
-  basePath = '/monitoring',
+  basePath = ROUTE_ROOTS.monitoring,
 }) {
+  const { mode } = useParams()
   const year = useMonitoringStore((s) => s.year)
   const setYear = useMonitoringStore((s) => s.setYear)
 
@@ -20,7 +22,7 @@ export function MonitoringHeader({
         {AVAILABLE_YEARS.map((y) => (
           <Link
             key={y}
-            to={`${basePath}/${y}`}
+            to={buildSectionPath({ basePath, year: y, mode })}
             className={cn(
               'monitoring-header__year',
               y === year && 'monitoring-header__year--active',

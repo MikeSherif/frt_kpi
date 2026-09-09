@@ -1,5 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
 import { useMonitoringStore } from '@/entities/monitoring'
+import { buildMonitoringPath } from '@/shared/lib/paths'
 import { CollapsibleSection } from '@/shared/ui/CollapsibleSection'
 import { KpiTable } from '@/widgets/kpi-table'
 import { MonitoringHeader } from '@/widgets/monitoring-header'
@@ -13,7 +14,7 @@ export function KpiMonitoringPage() {
   const toggleKpiSection = useMonitoringStore((s) => s.toggleKpiSection)
 
   if (section && section !== 'indicators' && !['answers', 'documents', 'history', 'collection'].includes(section)) {
-    return <Navigate to="/monitoring/2026" replace />
+    return <Navigate to={buildMonitoringPath({ year: 2026 })} replace />
   }
 
   const isIndicators = !section || section === 'indicators'
