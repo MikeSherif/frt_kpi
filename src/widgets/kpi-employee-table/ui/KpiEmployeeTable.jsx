@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useMonitoringStore } from '@/entities/monitoring'
-import { formatNumber, getQuarterById } from '@/shared/lib/monitoring'
+import { formatNumber, formatPercent, getQuarterById } from '@/shared/lib/monitoring'
 import { EditableCell } from '@/shared/ui/EditableCell'
 import { cn } from '@/shared/lib/classnames'
 import './KpiEmployeeTable.scss'
@@ -10,13 +10,20 @@ import './KpiEmployeeTable.scss'
  */
 export function KpiEmployeeTable({ rows, viewMode }) {
   const quarterId = useMonitoringStore((s) => s.quarterId)
+  const fullView = useMonitoringStore((s) => s.fullView)
   const quarter = useMemo(() => getQuarterById(quarterId), [quarterId])
   const [m1, m2, m3] = quarter.months
   const isMonthView = viewMode === 'month'
   const isQuarterView = viewMode === 'quarter'
 
   return (
-    <div className={cn('kpi-employee-table', `kpi-employee-table--${viewMode}`)}>
+    <div
+      className={cn(
+        'kpi-employee-table',
+        `kpi-employee-table--${viewMode}`,
+        fullView && 'kpi-employee-table--full-view',
+      )}
+    >
       <div className="kpi-employee-table__scroll">
         <table className="kpi-employee-table__grid">
           <thead className="kpi-employee-table__head">
@@ -66,6 +73,43 @@ export function KpiEmployeeTable({ rows, viewMode }) {
                 >
                   Причина отклонения
                 </th>
+              ) : null}
+              {fullView ? (
+                <>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    % достижения квартального плана (абс. цифра)
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    % достижения квартального плана (методика)
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    % достижения годового плана (абс. цифра)
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    % достижения годового плана (методика)
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    Целевое значение на 2026
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    Целевое значение на 2027
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    Целевое значение на 2028
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    Минимальное значение
+                  </th>
+                  <th className="kpi-employee-table__th" rowSpan={2}>
+                    Предельное значение
+                  </th>
+                  <th
+                    className="kpi-employee-table__th kpi-employee-table__th--methodology"
+                    rowSpan={2}
+                  >
+                    Методика
+                  </th>
+                </>
               ) : null}
               <th className="kpi-employee-table__th kpi-employee-table__th--person" rowSpan={2}>
                 Ответственный за выполнение
@@ -168,6 +212,40 @@ export function KpiEmployeeTable({ rows, viewMode }) {
                       type="textarea"
                     />
                   </td>
+                ) : null}
+                {fullView ? (
+                  <>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatPercent(row.achievementQuarterAbs)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatPercent(row.achievementQuarterMethod)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatPercent(row.achievementYearAbs)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatPercent(row.achievementYearMethod)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatNumber(row.target2026)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatNumber(row.target2027)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatNumber(row.target2028)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatNumber(row.minValue)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--num">
+                      {formatNumber(row.maxValue)}
+                    </td>
+                    <td className="kpi-employee-table__td kpi-employee-table__td--methodology">
+                      {row.methodology}
+                    </td>
+                  </>
                 ) : null}
                 <td className="kpi-employee-table__td">{row.responsibleExecution}</td>
                 <td className="kpi-employee-table__td">{row.responsibleInput}</td>

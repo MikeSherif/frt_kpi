@@ -42,7 +42,6 @@ export function KpiEmployeePage() {
         basePath={EMPLOYEE_BASE_PATH}
         sections={EMPLOYEE_MONITORING_SECTIONS}
         actions={viewMode === 'quarter' ? <SubmitForApprovalButton /> : null}
-        showFullView={false}
       />
       <main className="kpi-employee-page__main">
         {isIndicators ? (

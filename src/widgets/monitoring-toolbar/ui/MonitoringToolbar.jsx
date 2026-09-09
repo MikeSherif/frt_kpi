@@ -26,13 +26,15 @@ export function MonitoringToolbar({
     <div className="monitoring-toolbar">
       <div className="monitoring-toolbar__row monitoring-toolbar__row--primary">
         <QuarterTabs />
-        <div className="monitoring-toolbar__actions">
-          {actions}
-          {showFullView ? <FullViewToggle /> : null}
-        </div>
+        {actions ? <div className="monitoring-toolbar__actions">{actions}</div> : null}
       </div>
-      <div className="monitoring-toolbar__row">
+      <div className="monitoring-toolbar__row monitoring-toolbar__row--sections">
         <MonitoringSectionNav basePath={basePath} sections={sections} />
+        {showFullView ? (
+          <div className="monitoring-toolbar__full-view">
+            <FullViewToggle />
+          </div>
+        ) : null}
       </div>
     </div>
   )

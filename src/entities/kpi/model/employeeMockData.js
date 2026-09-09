@@ -15,12 +15,54 @@
  * @property {number|string|null} factMonth3
  * @property {number|string|null} factQuarter
  * @property {string} deviationReason
+ * @property {number|null} [achievementQuarterAbs]
+ * @property {number|null} [achievementQuarterMethod]
+ * @property {number|null} [achievementYearAbs]
+ * @property {number|null} [achievementYearMethod]
+ * @property {number|null} [target2026]
+ * @property {number|null} [target2027]
+ * @property {number|null} [target2028]
+ * @property {number|null} [minValue]
+ * @property {number|null} [maxValue]
+ * @property {string} [methodology]
  * @property {string} responsibleExecution
  * @property {string} responsibleInput
  */
 
+function latestFact(row) {
+  return (
+    Number(row.factQuarter) ||
+    Number(row.factMonth3) ||
+    Number(row.factMonth2) ||
+    Number(row.factMonth1) ||
+    0
+  )
+}
+
+function enrichEmployeeRow(row) {
+  const plan = Number(row.planQuarter) || 0
+  const fact = latestFact(row)
+  const qAbs = plan ? Number(((fact / plan) * 100).toFixed(2)) : null
+
+  return {
+    ...row,
+    achievementQuarterAbs: qAbs,
+    achievementQuarterMethod: qAbs != null ? Number((qAbs * 0.99).toFixed(2)) : null,
+    achievementYearAbs: qAbs != null ? Number((qAbs * 0.46).toFixed(2)) : null,
+    achievementYearMethod: qAbs != null ? Number((qAbs * 0.45).toFixed(2)) : null,
+    target2026: plan ? plan * 4 : null,
+    target2027: plan ? Math.round(plan * 4.3) : null,
+    target2028: plan ? Math.round(plan * 4.6) : null,
+    minValue: plan ? Math.round(plan * 3.2) : null,
+    maxValue: plan ? Math.round(plan * 5) : null,
+    methodology:
+      row.methodology ??
+      'Показатель рассчитывается нарастающим итогом по утверждённой методике. Источник — ведомственная отчётность.',
+  }
+}
+
 /** @type {Record<string, EmployeeKpiRow[]>} */
-export const EMPLOYEE_KPI_ROWS_BY_BLOCK = {
+const RAW_EMPLOYEE_KPI_ROWS_BY_BLOCK = {
   kpe: [
     {
       id: 'emp-kpe-1',
@@ -176,3 +218,11 @@ export const EMPLOYEE_KPI_ROWS_BY_BLOCK = {
     },
   ],
 }
+
+/** @type {Record<string, EmployeeKpiRow[]>} */
+export const EMPLOYEE_KPI_ROWS_BY_BLOCK = Object.fromEntries(
+  Object.entries(RAW_EMPLOYEE_KPI_ROWS_BY_BLOCK).map(([blockId, rows]) => [
+    blockId,
+    rows.map(enrichEmployeeRow),
+  ]),
+)

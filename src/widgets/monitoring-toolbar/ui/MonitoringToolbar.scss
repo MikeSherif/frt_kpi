@@ -18,8 +18,19 @@
   margin-bottom: 4px;
 }
 
+.monitoring-toolbar__row--sections {
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.monitoring-toolbar__full-view {
+  flex-shrink: 0;
+}
+
 .monitoring-toolbar__actions {
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-left: auto;
 }
