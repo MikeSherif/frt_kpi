@@ -1,0 +1,55 @@
+@use '@/app/styles/variables' as *;
+
+.admin-report-preview__note {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  background: #fff7ed;
+  border: 1px solid rgba(230, 126, 34, 0.28);
+  border-radius: 6px;
+  color: $color-text;
+  font-size: $font-size-sm;
+}
+
+.admin-report-preview__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.admin-report-preview__label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+.admin-report-preview__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-xs;
+}
+
+.admin-report-preview__table th,
+.admin-report-preview__table td {
+  padding: 8px 10px;
+  border: 1px solid $color-border;
+  vertical-align: top;
+}
+
+.admin-report-preview__table th {
+  background: $color-header-bg;
+  text-align: left;
+}
+
+.admin-report-preview__row--sub td:nth-child(2) {
+  padding-left: 20px;
+  color: $color-text-muted;
+  font-style: italic;
+}
+
+@media (min-width: 720px) {
+  .admin-report-preview__meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

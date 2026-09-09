@@ -1,6 +1,10 @@
 import { useMemo } from 'react'
 import { useMonitoringStore } from '@/entities/monitoring'
-import { formatNumber, getQuarterById } from '@/shared/lib/monitoring'
+import {
+  formatNumber,
+  formatPercent,
+  getQuarterById,
+} from '@/shared/lib/monitoring'
 import { cn } from '@/shared/lib/classnames'
 import { AdminEditableCell } from './AdminEditableCell'
 import {
@@ -13,11 +17,12 @@ import './KpiAdminTable.scss'
 
 export function KpiAdminTable({ rows }) {
   const quarterId = useMonitoringStore((s) => s.quarterId)
+  const fullView = useMonitoringStore((s) => s.fullView)
   const quarter = useMemo(() => getQuarterById(quarterId), [quarterId])
   const [m1, m2, m3] = quarter.months
 
   return (
-    <div className="kpi-admin-table">
+    <div className={cn('kpi-admin-table', fullView && 'kpi-admin-table--full-view')}>
       <p className="kpi-admin-table__hint">
         Наведите на значение показателя и нажмите, чтобы исправить данные сотрудника.
       </p>
@@ -55,6 +60,40 @@ export function KpiAdminTable({ rows }) {
               <th className="kpi-admin-table__th kpi-admin-table__th--wide" rowSpan={2}>
                 Причина отклонения
               </th>
+              {fullView ? (
+                <>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    % достижения квартального плана (абс. цифра)
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    % достижения квартального плана (методика)
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    % достижения годового плана (абс. цифра)
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    % достижения годового плана (методика)
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    Целевое значение на 2026
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    Целевое значение на 2027
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    Целевое значение на 2028
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    Минимальное значение
+                  </th>
+                  <th className="kpi-admin-table__th" rowSpan={2}>
+                    Предельное значение
+                  </th>
+                  <th className="kpi-admin-table__th kpi-admin-table__th--methodology" rowSpan={2}>
+                    Методика
+                  </th>
+                </>
+              ) : null}
               <th className="kpi-admin-table__th kpi-admin-table__th--person" rowSpan={2}>
                 Ответственный за выполнение
               </th>
@@ -137,6 +176,40 @@ export function KpiAdminTable({ rows }) {
                     type="textarea"
                   />
                 </td>
+                {fullView ? (
+                  <>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatPercent(row.achievementQuarterAbs)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatPercent(row.achievementQuarterMethod)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatPercent(row.achievementYearAbs)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatPercent(row.achievementYearMethod)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatNumber(row.target2026)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatNumber(row.target2027)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatNumber(row.target2028)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatNumber(row.minValue)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--num">
+                      {formatNumber(row.maxValue)}
+                    </td>
+                    <td className="kpi-admin-table__td kpi-admin-table__td--methodology">
+                      {row.methodology}
+                    </td>
+                  </>
+                ) : null}
                 <td className="kpi-admin-table__td kpi-admin-table__td--person">
                   <ResponsibleExecutionCell person={row.responsibleExecution} />
                 </td>

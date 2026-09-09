@@ -1,0 +1,101 @@
+@use '@/app/styles/variables' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow: auto;
+}
+
+.modal__backdrop {
+  position: fixed;
+  inset: 0;
+  border: none;
+  background: rgba(26, 26, 75, 0.45);
+  cursor: pointer;
+}
+
+.modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(960px, 100%);
+  margin: auto;
+  background: $color-surface;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid $color-border;
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal__close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  color: $color-text-muted;
+}
+
+.modal__close:hover {
+  background: $color-header-bg;
+  color: $color-text;
+}
+
+.modal__body {
+  padding: 20px;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid $color-border;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .modal,
+  .modal * {
+    visibility: visible;
+  }
+
+  .modal {
+    position: static;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .modal__backdrop,
+  .modal__close,
+  .modal__footer {
+    display: none;
+  }
+
+  .modal__dialog {
+    width: 100%;
+    box-shadow: none;
+  }
+}

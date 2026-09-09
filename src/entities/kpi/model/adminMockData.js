@@ -24,8 +24,30 @@
  * @property {AdminResponsiblePerson[]} responsibleInput
  */
 
+function enrichAdminRow(row) {
+  const plan = Number(row.planQuarter) || 0
+  const fact = Number(row.factQuarter) || 0
+  const qAbs = plan ? Number(((fact / plan) * 100).toFixed(2)) : null
+
+  return {
+    ...row,
+    achievementQuarterAbs: qAbs,
+    achievementQuarterMethod: qAbs != null ? Number((qAbs * 0.99).toFixed(2)) : null,
+    achievementYearAbs: qAbs != null ? Number((qAbs * 0.46).toFixed(2)) : null,
+    achievementYearMethod: qAbs != null ? Number((qAbs * 0.45).toFixed(2)) : null,
+    target2026: plan ? plan * 4 : null,
+    target2027: plan ? Math.round(plan * 4.3) : null,
+    target2028: plan ? Math.round(plan * 4.6) : null,
+    minValue: plan ? Math.round(plan * 3.2) : null,
+    maxValue: plan ? Math.round(plan * 5) : null,
+    methodology:
+      row.methodology ??
+      'Показатель рассчитывается нарастающим итогом по утверждённой методике. Источник — ведомственная отчётность.',
+  }
+}
+
 /** @type {Record<string, AdminKpiRow[]>} */
-export const ADMIN_KPI_ROWS_BY_BLOCK = {
+const RAW_ADMIN_KPI_ROWS_BY_BLOCK = {
   kpe: [
     {
       id: 'kpe-1',
@@ -181,3 +203,11 @@ export const ADMIN_KPI_ROWS_BY_BLOCK = {
     },
   ],
 }
+
+/** @type {Record<string, AdminKpiRow[]>} */
+export const ADMIN_KPI_ROWS_BY_BLOCK = Object.fromEntries(
+  Object.entries(RAW_ADMIN_KPI_ROWS_BY_BLOCK).map(([blockId, rows]) => [
+    blockId,
+    rows.map(enrichAdminRow),
+  ]),
+)

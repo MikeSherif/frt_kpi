@@ -1,5 +1,6 @@
 import { useCollectionStore } from '@/entities/collection'
-import { SchedulePicker } from '@/shared/ui/SchedulePicker'
+import { DatePicker } from '@/shared/ui/DatePicker'
+import { DurationPicker } from '@/shared/ui/DurationPicker'
 import './AdminCollectionPanel.scss'
 
 export function AdminCollectionPanel() {
@@ -27,22 +28,21 @@ export function AdminCollectionPanel() {
                   {row.label}
                 </td>
                 <td className="admin-collection-table__td">
-                  <SchedulePicker
+                  <DatePicker
                     value={row.startDate}
                     placeholder="Выбор даты"
                     onChange={(value) => updateRow(row.id, 'startDate', value)}
                   />
                 </td>
                 <td className="admin-collection-table__td">
-                  <SchedulePicker
-                    type="duration"
+                  <DurationPicker
                     value={row.durationDays}
                     placeholder="Выбор"
                     onChange={(value) => updateRow(row.id, 'durationDays', value)}
                   />
                 </td>
                 <td className="admin-collection-table__td">
-                  <SchedulePicker
+                  <DatePicker
                     value={row.extendDate}
                     placeholder="Выбор даты"
                     onChange={(value) => updateRow(row.id, 'extendDate', value)}

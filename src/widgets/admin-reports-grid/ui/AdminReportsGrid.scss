@@ -47,3 +47,23 @@
   color: #666;
   cursor: not-allowed;
 }
+
+.admin-reports-grid__primary,
+.admin-reports-grid__secondary {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: $font-size-sm;
+  font-weight: 500;
+}
+
+.admin-reports-grid__primary {
+  border: none;
+  background: #1a1a4b;
+  color: #fff;
+}
+
+.admin-reports-grid__secondary {
+  border: 1px solid $color-border;
+  background: $color-surface;
+  color: $color-text;
+}
