@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAdminKpiStore } from '@/entities/kpi'
-import { formatNumber } from '@/shared/lib/monitoring'
+import { formatNumber, formatPercent } from '@/shared/lib/monitoring'
 import { cn } from '@/shared/lib/classnames'
 import './AdminEditableCell.scss'
 
@@ -21,7 +21,11 @@ export function AdminEditableCell({
   const setCellValue = useAdminKpiStore((s) => s.setCellValue)
 
   const displayValue =
-    type === 'number' ? formatNumber(rawValue === '' ? null : rawValue) : rawValue || '—'
+    type === 'percent'
+      ? formatPercent(rawValue === '' ? null : rawValue)
+      : type === 'number'
+        ? formatNumber(rawValue === '' ? null : rawValue)
+        : rawValue || '—'
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -68,7 +72,7 @@ export function AdminEditableCell({
       type="button"
       className={cn(
         'admin-editable-cell',
-        type === 'number' && 'admin-editable-cell--num',
+        type === 'number' || type === 'percent' ? 'admin-editable-cell--num' : '',
         className,
       )}
       title="Нажмите, чтобы изменить"

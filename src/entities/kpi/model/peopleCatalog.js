@@ -1,0 +1,16 @@
+export const RESPONSIBLE_PEOPLE_CATALOG = [
+  { id: 'ilyukhina', name: 'Илюхина Е.А.' },
+  { id: 'kuznetsova', name: 'Кузнецова О.Л.' },
+  { id: 'orlova', name: 'Орлова Е.К.' },
+  { id: 'morozova', name: 'Морозова Л.П.' },
+  { id: 'gromova', name: 'Громова Т.В.' },
+  { id: 'smirnova', name: 'Смирнова А.Д.' },
+  { id: 'lebedeva', name: 'Лебедева И.С.' },
+  { id: 'petrova', name: 'Петрова А.С.' },
+  { id: 'kozlova', name: 'Козлова М.Н.' },
+  { id: 'volkova', name: 'Волкова Н.И.' },
+  { id: 'shelkovy', name: 'Шелковый А.Н.' },
+  { id: 'zavertyaev', name: 'Завертяев А.В.' },
+  { id: 'nikolaev', name: 'Николаев Д.А.' },
+  { id: 'fedorov', name: 'Фёдоров В.Г.' },
+]

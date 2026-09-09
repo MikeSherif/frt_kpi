@@ -1,18 +1,11 @@
 import { useMemo } from 'react'
 import { useMonitoringStore } from '@/entities/monitoring'
-import {
-  formatNumber,
-  formatPercent,
-  getQuarterById,
-} from '@/shared/lib/monitoring'
+import { getQuarterById } from '@/shared/lib/monitoring'
 import { cn } from '@/shared/lib/classnames'
 import { AdminEditableCell } from './AdminEditableCell'
-import {
-  ResponsibleExecutionCell,
-  ResponsibleInputCell,
-} from './ResponsibleCell'
+import { ResponsibleExecutionCell, ResponsiblePicker } from './ResponsiblePicker'
 import './AdminEditableCell.scss'
-import './ResponsibleCell.scss'
+import './ResponsiblePicker.scss'
 import './KpiAdminTable.scss'
 
 export function KpiAdminTable({ rows }) {
@@ -125,7 +118,12 @@ export function KpiAdminTable({ rows }) {
                   {row.title}
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                  {formatNumber(row.weight)}
+                  <AdminEditableCell
+                    rowId={row.id}
+                    field="weight"
+                    defaultValue={row.weight}
+                    type="number"
+                  />
                 </td>
                 <td className="kpi-admin-table__td">{row.unit}</td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--num">
@@ -179,34 +177,84 @@ export function KpiAdminTable({ rows }) {
                 {fullView ? (
                   <>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatPercent(row.achievementQuarterAbs)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="achievementQuarterAbs"
+                        defaultValue={row.achievementQuarterAbs}
+                        type="percent"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatPercent(row.achievementQuarterMethod)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="achievementQuarterMethod"
+                        defaultValue={row.achievementQuarterMethod}
+                        type="percent"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatPercent(row.achievementYearAbs)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="achievementYearAbs"
+                        defaultValue={row.achievementYearAbs}
+                        type="percent"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatPercent(row.achievementYearMethod)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="achievementYearMethod"
+                        defaultValue={row.achievementYearMethod}
+                        type="percent"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatNumber(row.target2026)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="target2026"
+                        defaultValue={row.target2026}
+                        type="number"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatNumber(row.target2027)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="target2027"
+                        defaultValue={row.target2027}
+                        type="number"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatNumber(row.target2028)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="target2028"
+                        defaultValue={row.target2028}
+                        type="number"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatNumber(row.minValue)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="minValue"
+                        defaultValue={row.minValue}
+                        type="number"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--num">
-                      {formatNumber(row.maxValue)}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="maxValue"
+                        defaultValue={row.maxValue}
+                        type="number"
+                      />
                     </td>
                     <td className="kpi-admin-table__td kpi-admin-table__td--methodology">
-                      {row.methodology}
+                      <AdminEditableCell
+                        rowId={row.id}
+                        field="methodology"
+                        defaultValue={row.methodology}
+                        type="textarea"
+                      />
                     </td>
                   </>
                 ) : null}
@@ -214,9 +262,10 @@ export function KpiAdminTable({ rows }) {
                   <ResponsibleExecutionCell person={row.responsibleExecution} />
                 </td>
                 <td className="kpi-admin-table__td kpi-admin-table__td--person">
-                  <ResponsibleInputCell
-                    persons={row.responsibleInput}
-                    onAdd={() => {}}
+                  <ResponsiblePicker
+                    rowId={row.id}
+                    field="responsibleInput"
+                    people={row.responsibleInput}
                   />
                 </td>
               </tr>
